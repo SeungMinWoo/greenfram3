@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.greenfram3.feed.FeedCommentMapper">
+<insert id="insComent" useGeneratedKeys="true" keyProperty="ifeedComent">
+    insert into t_feed_comment
+    set ifeed =#{ifeed}
+    ,iuser = #{iuser}
+    ,coment =#{comment}
+</insert>
+
+    <select id="selCommentAll">
+        select A.ifeed_comment AS ifeedComment, A.comment, A.created_at AS createdAt
+        , B.iuser AS writerIuser, B.nm AS writerNm, B.pic AS writerPic
+        FROM t_feed_coment A
+        join t_user B
+        ON A.iuser = B.iuser
+        where A.ifeed = #{ifeed}
+        order by A.ifeed
+        limit #{starIdx}, #{rwoCount}
+    </select>
+</mapper>
